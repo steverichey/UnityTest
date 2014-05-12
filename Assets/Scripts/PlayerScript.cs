@@ -24,6 +24,21 @@ public class PlayerScript : MonoBehaviour
 
         // Movement per direction
         movement = new Vector2(speed.x * inputX, speed.y * inputY);
+
+        // Shootin' time
+        bool shoot = Input.GetButtonDown("Fire1");
+        shoot |= Input.GetButtonDown("Fire2");
+
+        if (shoot)
+        {
+            WeaponScript weapon = GetComponent<WeaponScript>();
+
+            if (weapon != null)
+            {
+                // False, we're not an enemy, yo
+                weapon.Attack(false);
+            }
+        }
 	}
 
     // Physics updates should be done here
