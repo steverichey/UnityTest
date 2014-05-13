@@ -9,13 +9,6 @@ public class PlayerScript : MonoBehaviour
     // Store the movement
     private Vector2 movement;
 
-	// Use this for initialization
-	void Start ()
-    {
-	    
-	}
-	
-	// Update is called once per frame
 	void Update ()
     {
 	    // Retrieve axis information
@@ -46,5 +39,36 @@ public class PlayerScript : MonoBehaviour
     {
         // Move the game object
         rigidbody2D.velocity = movement;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        bool damagePlayer = false;
+
+        // Collision with enemy
+        EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
+
+        if (enemy != null)
+        {
+            // Kill the enemy!
+            HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.Damage(enemyHealth.hp);
+            }
+
+            damagePlayer = true;
+        }
+
+        if (damagePlayer)
+        {
+            HealthScript playerHealth = this.GetComponent<HealthScript>();
+
+            if (playerHealth != null)
+            {
+                playerHealth.Damage(1);
+            }
+        }
     }
 }
