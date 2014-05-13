@@ -37,3 +37,5 @@ Thumbs.db
 # ============ #
 *.exe
 *_Data/
+*.html
+*.unity3d
